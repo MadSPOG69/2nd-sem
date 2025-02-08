@@ -1,42 +1,47 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 int main() {
-    string str;
-    cout << "Enter a string: ";
-    getline(cin >> ws, str);
+    int n;
+    cout << "Enter the size of square matrix: ";
+    cin >> n;
 
-    string original = str;
-    int len = str.length();
-
-    for (int i = 0; i < len / 2; i++) {
-        swap(str[i], str[len - 1 - i]);
-    }
-
-    if (original == str) cout << "String is palindrome!!\n";
-    else cout << "String is Not a palindrome!!\n";
-
-    cout << "\nFrequencies: \n";
-    for (int i = 0; i < len; i++) {
-        if (str[i] == ' ') continue;
-        int count = 0;
-        for (int j = 0; j < len; j++) {
-            if (str[j] == str[i]) count++;
+    int matrix[n][n];
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << "Enter element for Row " << i + 1 << " Column " << j + 1 << " : ";
+            cin >> matrix[i][j];
         }
-        cout << str[i] << ": " << count << endl;
-        str[i] = ' ';
     }
-
-    char symbol;
-    cout << "\nEnter the symbol you want to replace vowels with: ";
-    cin >> symbol;
-    string vowels = "aeiouAEIOU";
-
-    for (char& c : original) {
-        if (vowels.find(c) != string::npos) c = symbol;
+    
+    cout << "\nOriginal Matrix: \n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matrix[i][j] << "\t";
+        }
+        cout << "\n";
     }
-
-    cout << original;
-    return 0;
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = i; j < n; j++) {
+            swap(matrix[i][j], matrix[j][i]);
+        }
+    }
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n / 2; j++) {
+            swap(matrix[i][j], matrix[i][n - 1 - j]);
+        }
+    }
+    
+    cout << "\nRotated Matrix: \n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << matrix[i][j] << "\t";
+        }
+        cout << "\n";
+    }
+    
+    return 0;
 }
